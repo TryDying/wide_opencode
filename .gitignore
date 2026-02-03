@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+
+# Cache & runtime
+*.log
+*.tmp
+.cache/
+.DS_Store
+.vscode/
+.idea/
+.env
+.env.local
+.env.*.local
+
+# OS & editor
+*~
+.swp
+.swo
+*.iml
+
+# Sisyphus runtime (but track drafts)
+.sisyphus/cache/
+.sisyphus/state/
+.sisyphus/temp/
+
+# Build artifacts
+dist/
+build/
+out/
