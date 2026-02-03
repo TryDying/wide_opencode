@@ -21,9 +21,7 @@ yarn.lock
 *.iml
 
 # Sisyphus runtime (but track drafts)
-.sisyphus/cache/
-.sisyphus/state/
-.sisyphus/temp/
+.sisyphus/*
 
 # Build artifacts
 dist/
