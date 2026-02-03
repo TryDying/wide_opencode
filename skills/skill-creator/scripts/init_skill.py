@@ -6,9 +6,11 @@ Usage:
     init_skill.py <skill-name> --path <path>
 
 Examples:
-    init_skill.py my-new-skill --path skills/public
-    init_skill.py my-api-helper --path skills/private
-    init_skill.py custom-skill --path /custom/location
+    # Global skill (available across all projects)
+    init_skill.py my-new-skill --path ~/.config/opencode/skills
+    
+    # Project skill (available only in specific project)
+    init_skill.py my-api-helper --path /path/to/project/.opencode/skills
 """
 
 import sys
@@ -279,9 +281,11 @@ def main():
         print("  - Max 40 characters")
         print("  - Must match directory name exactly")
         print("\nExamples:")
-        print("  init_skill.py my-new-skill --path skills/public")
-        print("  init_skill.py my-api-helper --path skills/private")
-        print("  init_skill.py custom-skill --path /custom/location")
+        print("  # Global skill (available across all projects)")
+        print("  init_skill.py my-new-skill --path ~/.config/opencode/skills")
+        print()
+        print("  # Project skill (available only in specific project)")
+        print("  init_skill.py my-api-helper --path /path/to/project/.opencode/skills")
         sys.exit(1)
 
     skill_name = sys.argv[1]

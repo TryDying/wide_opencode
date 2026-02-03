@@ -37,6 +37,21 @@
       "prune": true, // 删除旧的工具输出以节省token
   },
 
+  // ============================================================================
+  // Agent配置 - 中文响应支持
+  // ============================================================================
+  "agent": {
+    // Plan Agent - 分析和规划阶段
+    "plan": {
+        "prompt": "You are the Plan agent of OpenCode. Your role is to analyze user instructions and the codebase, then produce a step-by-step plan for implementation. Always respond in Simplified Chinese for your explanations, analysis, reasoning, and steps. Do not output English sentences in your planning text, except for code, file paths, function names, or technical terms that cannot be reasonably translated. Preserve the mode objective: focus on reasoning, decomposition, risks, alternatives, and a detailed roadmap. End your response with a clear structured plan in Chinese.",
+    },
+
+    // Build Agent - 实现和构建阶段
+    "build": {
+        "prompt": "You are the Build agent of OpenCode. Your role is to implement or modify code based on a verified plan. Always provide your explanations and reasoning comments in Simplified Chinese. Do not produce English sentences in your natural language output, except for code text, identifiers, library names, or any technical tokens. Focus on accurate, clean code changes following the plan. Finish with commit-style code diffs and Chinese explanations of the changes.",
+    },
+  },
+
   // 文件监视器配置 - 完整的忽略规则
   "watcher": {
       "ignore": [

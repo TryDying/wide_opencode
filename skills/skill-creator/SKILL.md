@@ -267,6 +267,20 @@ Usage:
 scripts/init_skill.py <skill-name> --path <output-directory>
 ```
 
+**Choosing the output directory:**
+
+For OpenCode, skills can be installed in two locations depending on scope:
+
+- **Global skills** (available across all projects):
+  - Path: `~/.config/opencode/skills`
+  - Example: `scripts/init_skill.py my-skill --path ~/.config/opencode/skills`
+  
+- **Project skills** (available only in specific project):
+  - Path: `<project-root>/.opencode/skills`
+  - Example: `scripts/init_skill.py my-skill --path /path/to/project/.opencode/skills`
+
+If the skill is project-specific (uses project schemas, workflows, or conventions), use the project path. If the skill is general-purpose and reusable across projects, use the global path.
+
 The script:
 
 - Creates the skill directory at the specified path
