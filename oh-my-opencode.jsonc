@@ -15,7 +15,7 @@
       // 主编排器 / 执行总控
       // 负责：任务拆解、子代理调度、全流程推进
       "description": "总控。负责：任务拆解、子代理调度、全流程推进",
-      "model": "openai/gpt-5.2-codex",
+      "model": "openai/gpt-5.2",
       "variant": "high",
     },
 
@@ -94,6 +94,77 @@
       "model": "github-copilot/gemini-3-pro-preview",
       "variant": "medium",
     },
+
+    "demo_agent": {
+      // =========================
+      // Demo：单个 agent 可配置字段全集示例（全部注释，不生效）
+      // =========================
+
+      // 是否禁用该 agent
+      "disable": true,
+
+      // 说明/展示用描述
+      "description": "Demo agent (commented out)",
+
+      // UI 显示颜色（#RRGGBB）
+      "color": "#2E7D32",
+
+      // 运行模式（常见：primary / subagent / all）
+      "mode": "subagent",
+
+      // 模型/变体/分类
+      "model": "openai/gpt-5.2",
+      "variant": "medium",
+      "category": "general",
+
+      // 技能白名单（按需启用）
+      "skills": ["git-master", "playwright"],
+
+      // 采样参数（按 provider 支持情况生效）
+      "temperature": 0.2,
+      "top_p": 0.95,
+
+      // 最大输出 token
+      "maxTokens": 8192,
+
+      // OpenAI 系推理强度
+      "reasoningEffort": "high",
+
+      // Anthropic 系思考配置
+      "thinking": {
+        "type": "enabled",
+        "budgetTokens": 2048
+      },
+
+      // 输出啰嗦程度（若 provider 支持）
+      "textVerbosity": "medium",
+
+      // provider 透传参数
+      "providerOptions": {
+        "some_provider_specific_key": "some_value"
+      },
+
+      // 完整替换默认提示词（慎用）
+      "prompt": "你是一个示例 agent。请严格按要求执行。",
+
+      // 追加提示词（推荐用来添加约束）
+      "prompt_append": "内网环境：禁止使用内置 webfetch；URL 获取改用 MCP webfetch_local。",
+
+      // 逐工具开关（toolName 必须精确匹配）
+      "tools": {
+        "functions.webfetch": false,
+        "mcp.webfetch_local.fetch": true
+      },
+
+      // 权限控制
+      "permission": {
+        "edit": "allow",
+        "bash": "allow",
+        "webfetch": "deny",
+        "external_directory": "deny",
+        "doom_loop": "deny"
+      }
+    }
   },
 
   // =========================
