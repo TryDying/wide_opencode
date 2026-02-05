@@ -16,7 +16,7 @@
       // 负责：任务拆解、子代理调度、全流程推进
       "description": "总控。负责：任务拆解、子代理调度、全流程推进",
       "model": "openai/gpt-5.2",
-      "variant": "high",
+      "variant": "medium",
     },
 
     "prometheus": {
