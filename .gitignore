@@ -27,3 +27,6 @@ yarn.lock
 dist/
 build/
 out/
+
+bun.lock
+package.json
