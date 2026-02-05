@@ -17,6 +17,7 @@
       "description": "总控。负责：任务拆解、子代理调度、全流程推进",
       "model": "openai/gpt-5.2",
       "variant": "medium",
+      "prompt_append": "Filesystem policy: unless the user explicitly requests a path, do not create new files in the repo root. Put any generated notes/summaries/references/extracts under `.sisyphus/` (create subdirs as needed, e.g. `.sisyphus/notes/`).",
     },
 
     "prometheus": {
@@ -25,6 +26,7 @@
       "description": "架构师。负责：复杂任务的结构化计划、步骤设计",
       "model": "openai/gpt-5.2",
       "variant": "medium",
+      "prompt_append": "Filesystem policy: unless the user explicitly requests a path, do not create new files in the repo root. Put any generated notes/summaries/references/extracts under `.sisyphus/` (create subdirs as needed, e.g. `.sisyphus/notes/`).",
     },
 
     "hephaestus": {
@@ -33,6 +35,7 @@
       "description": "实现者。负责：代码生成、重构、具体实现",
       "model": "openai/gpt-5.2-codex",
       "variant": "medium",
+      "prompt_append": "Filesystem policy: unless the user explicitly requests a path, do not create new files in the repo root. Put any generated notes/summaries/references/extracts under `.sisyphus/` (create subdirs as needed, e.g. `.sisyphus/notes/`).",
     },
 
     "atlas": {
