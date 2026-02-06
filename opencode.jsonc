@@ -11,14 +11,14 @@
     "context7": {
         "type": "remote",
         "url": "https://mcp.context7.com/mcp",
-        "enabled": false,
+        "enabled": true,
     },
 
     // 【代码搜索】在GitHub上搜索代码示例
     "gh_grep": {
         "type": "remote",
         "url": "https://mcp.grep.app",
-        "enabled": false,
+        "enabled": true,
     },
     },
 
@@ -37,7 +37,7 @@
       "prune": true, // 删除旧的工具输出以节省token
   },
 
-  "autoupdate": "notify",  // true, false, notify
+  "autoupdate": "notify", // true, false, notify
 
   // ============================================================================
   // Agent配置 - 中文响应支持

@@ -33,7 +33,7 @@
       // Builder / 实现执行
       // 负责：代码生成、重构、具体实现
       "description": "实现者。负责：代码生成、重构、具体实现",
-      "model": "openai/gpt-5.2-codex",
+      "model": "openai/gpt-5.3-codex",
       "variant": "medium",
       "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
     },
@@ -194,7 +194,7 @@
 
     "ultrabrain": {
       // 极重任务（长上下文 + 多轮推理）
-      "model": "openai/gpt-5.2-codex",
+      "model": "openai/gpt-5.3-codex",
       "variant": "high",
     },
 
@@ -230,7 +230,7 @@
     },
     "modelConcurrency": {
       "openai/gpt-5.2": 2,
-      "openai/gpt-5.2-codex": 1,
+      "openai/gpt-5.3-codex": 1,
     },
     "staleTimeoutMs": 180000,
   },
