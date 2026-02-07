@@ -3,7 +3,7 @@
   // Agents 定义
   // =========================
   "sisyphus_agent": {
-    "default_builder_enabled": true,
+    "default_builder_enabled": false,
     "replace_plan": false,
   },
   "agents": {
