@@ -198,12 +198,12 @@
           "variants": {
             "low": {
               "reasoningEffort": "low",
-              "reasoningSummary": "detailed",
+              "reasoningSummary": "auto",
               "textVerbosity": "medium",
             },
             "medium": {
               "reasoningEffort": "medium",
-              "reasoningSummary": "detailed",
+              "reasoningSummary": "auto",
               "textVerbosity": "medium",
             },
             "high": {
