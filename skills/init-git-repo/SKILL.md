@@ -62,6 +62,7 @@ compile_commands.json
 .clinerules/
 .opencode/
 .sisyphus/
+.specify/
 
 # OSX脏文件
 .DS_Store

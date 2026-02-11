@@ -36,7 +36,9 @@
     "diff_style": "auto",
   },
 
+  // =======================================================================
   // 上下文压缩配置
+  // =======================================================================
   "compaction": {
     "auto": true, // 上下文满时自动压缩
     "prune": true, // 删除旧的工具输出以节省token
@@ -45,21 +47,21 @@
   "autoupdate": "notify", // true, false, notify
 
   // ============================================================================
-  // Agent配置 - 中文响应支持
+  // Agent配置
   // ============================================================================
   "agent": {
-    // Plan Agent - 分析和规划阶段
-    "plan": {
-      "prompt": "You are the Plan agent of OpenCode. Your role is to analyze user instructions and the codebase, then produce a step-by-step plan for implementation. Always respond in Simplified Chinese for your explanations, analysis, reasoning, and steps. Do not output English sentences in your planning text, except for code, file paths, function names, or technical terms that cannot be reasonably translated. Preserve the mode objective: focus on reasoning, decomposition, risks, alternatives, and a detailed roadmap. End your response with a clear structured plan in Chinese.",
+    "sk-research": {
+      "model": "doubao/glm-4.7",
     },
-
-    // Build Agent - 实现和构建阶段
-    "build": {
-      "prompt": "You are the Build agent of OpenCode. Your role is to implement or modify code based on a verified plan. Always provide your explanations and reasoning comments in Simplified Chinese. Do not produce English sentences in your natural language output, except for code text, identifiers, library names, or any technical tokens. Focus on accurate, clean code changes following the plan. Finish with commit-style code diffs and Chinese explanations of the changes.",
+    "explore": {
+      "model": "github-copilot/claude-haiku-4.5",
+      "variant": "thinking",
     },
   },
 
+  // =======================================================================
   // 文件监视器配置 - 完整的忽略规则
+  // =======================================================================
   "watcher": {
     "ignore": [
       "**/node_modules/**",
@@ -99,8 +101,14 @@
       ".root/**",
       ".opencode/**",
       ".sisyphus/**",
+      ".specify/**",
     ],
   },
+
+  // =======================================================================
+  // 模型提供商配置
+  // =======================================================================
+
   "provider": {
     "openai": {
       "options": {
@@ -215,7 +223,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "Doubao Coding Plan",
       "options": {
-        "baseURL": "https://ark.cn-beijing.volces.com/api/coding/v3",
+        "baseURL": "{env:DOUBAO_PLAN_BASE_URL}",
         "apiKey": "{env:DOUBAO_API_KEY}",
       },
       "models": {
@@ -286,6 +294,29 @@
           "limit": {
             "context": 200000,
             "output": 128000,
+          },
+        },
+        "deepseek-v3.2": {
+          "name": "DeepSeek-V3",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "options": {
+            "thinking": {
+              "type": "disabled",
+            },
+          },
+          "variants": {
+            "thinking": {
+              "thinking": {
+                "type": "enabled",
+              },
+            },
+          },
+          "limit": {
+            "context": 1280000,
+            "output": 32000,
           },
         },
       },

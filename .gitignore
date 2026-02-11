@@ -30,3 +30,7 @@ out/
 
 bun.lock
 package.json
+
+.opencode/
+.sisyphus/
+.specify/

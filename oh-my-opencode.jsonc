@@ -1,247 +1,103 @@
 {
-  // =========================
-  // Agents 定义
-  // =========================
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "sisyphus_agent": {
     "default_builder_enabled": false,
-    "replace_plan": false,
+    "planner_enabled": true,
+    "replace_plan": true,
   },
   "agents": {
-    // -------------------------------------------------
-    // PRIMARY AGENTS（Top agent，可 Tab 切换）
-    // -------------------------------------------------
-
     "sisyphus": {
-      // 主编排器 / 执行总控
-      // 负责：任务拆解、子代理调度、全流程推进
       "description": "总控。负责：任务拆解、子代理调度、全流程推进",
-      "model": "openai/gpt-5.2",
-      "variant": "high",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
-    },
-
-    "prometheus": {
-      // Planner / 架构与计划生成
-      // 负责：复杂任务的结构化计划、步骤设计
-      "description": "架构师。负责：复杂任务的结构化计划、步骤设计",
-      "model": "openai/gpt-5.2",
-      "variant": "medium",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
-    },
-
-    "hephaestus": {
-      // Builder / 实现执行
-      // 负责：代码生成、重构、具体实现
-      "description": "实现者。负责：代码生成、重构、具体实现",
       "model": "openai/gpt-5.3-codex",
-      "variant": "low",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
+      "mode": "primary",
+      "variant": "high",
     },
-
+    "prometheus": {
+      "description": "架构师。负责：复杂任务的结构化计划、步骤设计",
+      "mode": "all",
+      "model": "openai/gpt-5.2",
+      "variant": "medium",
+      // "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
+    },
     "atlas": {
-      // Reviewer / 全局一致性与质量审查
-      // 负责：检查实现是否符合最初目标、发现遗漏
+      "mode": "primary",
       "description": "审查者。负责：检查实现是否符合最初目标、发现遗漏",
-      "model": "github-copilot/claude-sonnet-4.5",
+      "model": "openai/gpt-5.2",
       "variant": "medium",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
     },
-
-    // -------------------------------------------------
-    // SUBAGENTS（不可 Tab，供 primary 调用）
-    // -------------------------------------------------
-
+    "hephaestus": {
+      "description": "实现者。负责：代码生成、重构、具体实现",
+      "mode": "subagent",
+      "model": "openai/gpt-5.3-codex",
+      "variant": "medium",
+    },
     "metis": {
-      // 计划顾问 / 规划校正
-      // 负责：评审或改进 Prometheus 给出的 plan
       "mode": "subagent",
       "model": "openai/gpt-5.2",
       "variant": "medium",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
     },
-
     "oracle": {
-      // 判断型专家 / 风险与可行性评估
-      // 负责：是非判断、方案取舍、边界条件分析
       "mode": "subagent",
       "model": "openai/gpt-5.2",
       "variant": "medium",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
     },
-
     "explore": {
-      // 轻量探索 / 快速试探
-      // 负责：低成本探索想法、扫一眼可行性
       "mode": "subagent",
       "model": "github-copilot/claude-haiku-4.5",
       "variant": "fast",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
     },
-
     "librarian": {
-      // 信息整理 / 摘要与结构化
-      // 负责：长输出压缩、资料整理、总结
       "mode": "subagent",
-      "model": "openai/gpt-5.2",
-      "variant": "low",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
+      "model": "doubao/glm-4.7",
+      // "variant": "thinking",
     },
-
     "momus": {
-      // 反例与质疑者
-      // 负责：挑战假设、指出盲点
       "mode": "subagent",
-      "model": "github-copilot/claude-sonnet-4.5",
-      "variant": "medium",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
-    },
-
-    "multimodal-looker": {
-      // 多模态观察者
-      // 负责：图片 / 视觉输入理解（非长上下文核心路径）
-      "mode": "subagent",
-      "model": "github-copilot/gemini-3-pro-preview",
-      "variant": "medium",
-      "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
-    },
-
-    "demo_agent": {
-      // =========================
-      // Demo：单个 agent 可配置字段全集示例（全部注释，不生效）
-      // =========================
-
-      // 是否禁用该 agent
-      "disable": true,
-
-      // 说明/展示用描述
-      "description": "Demo agent (commented out)",
-
-      // UI 显示颜色（#RRGGBB）
-      "color": "#2E7D32",
-
-      // 运行模式（常见：primary / subagent / all）
-      "mode": "subagent",
-
-      // 模型/变体/分类
       "model": "openai/gpt-5.2",
       "variant": "medium",
-      "category": "general",
-
-      // 技能白名单（按需启用）
-      "skills": ["git-master", "playwright"],
-
-      // 采样参数（按 provider 支持情况生效）
-      "temperature": 0.2,
-      "top_p": 0.95,
-
-      // 最大输出 token
-      "maxTokens": 8192,
-
-      // OpenAI 系推理强度
-      "reasoningEffort": "high",
-
-      // Anthropic 系思考配置
-      "thinking": {
-        "type": "enabled",
-        "budgetTokens": 2048,
-      },
-
-      // 输出啰嗦程度（若 provider 支持）
-      "textVerbosity": "medium",
-
-      // provider 透传参数
-      "providerOptions": {
-        "some_provider_specific_key": "some_value",
-      },
-
-      // 完整替换默认提示词（慎用）
-      "prompt": "你是一个示例 agent。请严格按要求执行。",
-
-      // 追加提示词（推荐用来添加约束）
-      "prompt_append": "内网环境：禁止使用内置 webfetch；URL 获取改用 MCP webfetch_local。",
-
-      // 逐工具开关（toolName 必须精确匹配）
-      "tools": {
-        "functions.webfetch": false,
-        "mcp.webfetch_local.fetch": true,
-      },
-
-      // 权限控制
-      "permission": {
-        "edit": "allow",
-        "bash": "allow",
-        "webfetch": "deny",
-        "external_directory": "deny",
-        "doom_loop": "deny",
-      },
+    },
+    "multimodal-looker": {
+      "mode": "subagent",
+      "model": "github-copilot/gemini-3-flash-preview",
     },
   },
-
-  // =========================
-  // Categories（模型路由标签）
-  // =========================
   "categories": {
     "quick": {
-      // 快速、低成本回答
       "model": "github-copilot/claude-haiku-4.5",
     },
-
     "deep": {
-      // 深度推理 / 严肃讨论
       "model": "openai/gpt-5.2",
       "variant": "medium",
     },
-
     "ultrabrain": {
-      // 极重任务（长上下文 + 多轮推理）
       "model": "openai/gpt-5.3-codex",
       "variant": "high",
     },
-
     "visual-engineering": {
-      // 图像 / 视觉相关工程任务
       "model": "github-copilot/gemini-3-pro-preview",
     },
-
     "artistry": {
-      // 设计 / 创意 / 视觉表达
       "model": "github-copilot/gemini-3-flash-preview",
     },
-
     "unspecified-low": {
-      // 未分类的轻任务，尽量省额度
       "model": "github-copilot/gpt-4o",
     },
-
     "unspecified-high": {
-      // 未分类但需要认真回答的任务
-      "model": "openai/gpt-5.2",
+      "model": "openai/gpt-5.3-codex",
+      "variant": "high",
     },
   },
-
-  // =========================
-  // Background Task 并发控制
-  // =========================
   "background_task": {
     "defaultConcurrency": 3,
     "providerConcurrency": {
       "openai": 2,
-      "github-copilot": 4,
+      "github-copilot": 2,
+      "doubao": 2,
     },
     "modelConcurrency": {
       "openai/gpt-5.2": 2,
       "openai/gpt-5.3-codex": 1,
     },
     "staleTimeoutMs": 180000,
-  },
-
-  // =========================
-  // 上下文压缩（仍建议开启）
-  // =========================
-  "compaction": {
-    // 上下文接近上限时自动压缩
-    "auto": true,
-    // 删除旧的 tool 输出，防止 token 爆炸
-    "prune": true,
   },
 }
