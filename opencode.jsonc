@@ -1,45 +1,45 @@
 {
-    "$schema": "https://opencode.ai/config.json",
-    "plugin": [
-        "@tarquinen/opencode-dcp",
-        "@mohak34/opencode-notifier",
-        "oh-my-opencode@latest",
-        "opencode-openai-codex-auth",
-        "opencode-websearch-cited@1.2.0",
-    ],
-    "mcp": {
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "@tarquinen/opencode-dcp",
+    "@mohak34/opencode-notifier",
+    "oh-my-opencode@latest",
+    "opencode-websearch-cited@1.2.0",
+    // "opencode-openai-codex-auth"
+  ],
+  "mcp": {
     // 【文档搜索】搜索各种框架和库的官方文档
     "context7": {
-        "type": "remote",
-        "url": "https://mcp.context7.com/mcp",
-        "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true,
     },
 
     // 【代码搜索】在GitHub上搜索代码示例
     "gh_grep": {
-        "type": "remote",
-        "url": "https://mcp.grep.app",
-        "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": true,
     },
 
     "websearch": {
-        "enabled": true,
+      "enabled": true,
     },
-    },
+  },
 
   // TUI配置
   "tui": {
-      "scroll_speed": 3,
-      "scroll_acceleration": {
-          "enabled": true,
-      },
-      "diff_style": "auto",
+    "scroll_speed": 3,
+    "scroll_acceleration": {
+      "enabled": true,
+    },
+    "diff_style": "auto",
   },
 
   // 上下文压缩配置
   "compaction": {
-      "auto": true, // 上下文满时自动压缩
-      "prune": true, // 删除旧的工具输出以节省token
+    "auto": true, // 上下文满时自动压缩
+    "prune": true, // 删除旧的工具输出以节省token
   },
 
   "autoupdate": "notify", // true, false, notify
@@ -50,19 +50,19 @@
   "agent": {
     // Plan Agent - 分析和规划阶段
     "plan": {
-        "prompt": "You are the Plan agent of OpenCode. Your role is to analyze user instructions and the codebase, then produce a step-by-step plan for implementation. Always respond in Simplified Chinese for your explanations, analysis, reasoning, and steps. Do not output English sentences in your planning text, except for code, file paths, function names, or technical terms that cannot be reasonably translated. Preserve the mode objective: focus on reasoning, decomposition, risks, alternatives, and a detailed roadmap. End your response with a clear structured plan in Chinese.",
+      "prompt": "You are the Plan agent of OpenCode. Your role is to analyze user instructions and the codebase, then produce a step-by-step plan for implementation. Always respond in Simplified Chinese for your explanations, analysis, reasoning, and steps. Do not output English sentences in your planning text, except for code, file paths, function names, or technical terms that cannot be reasonably translated. Preserve the mode objective: focus on reasoning, decomposition, risks, alternatives, and a detailed roadmap. End your response with a clear structured plan in Chinese.",
     },
 
     // Build Agent - 实现和构建阶段
     "build": {
-        "prompt": "You are the Build agent of OpenCode. Your role is to implement or modify code based on a verified plan. Always provide your explanations and reasoning comments in Simplified Chinese. Do not produce English sentences in your natural language output, except for code text, identifiers, library names, or any technical tokens. Focus on accurate, clean code changes following the plan. Finish with commit-style code diffs and Chinese explanations of the changes.",
+      "prompt": "You are the Build agent of OpenCode. Your role is to implement or modify code based on a verified plan. Always provide your explanations and reasoning comments in Simplified Chinese. Do not produce English sentences in your natural language output, except for code text, identifiers, library names, or any technical tokens. Focus on accurate, clean code changes following the plan. Finish with commit-style code diffs and Chinese explanations of the changes.",
     },
   },
 
   // 文件监视器配置 - 完整的忽略规则
   "watcher": {
-      "ignore": [
-          "**/node_modules/**",
+    "ignore": [
+      "**/node_modules/**",
       "node_modules/**",
       "**/bower_components/**",
       "bower_components/**",
@@ -121,7 +121,7 @@
             "output": 128000,
           },
           "modalities": {
-            "input": ["text", "image"],
+            "input": ["text", "image", "pdf"],
             "output": ["text"],
           },
           "variants": {
@@ -159,7 +159,7 @@
             "output": 128000,
           },
           "modalities": {
-            "input": ["text", "image"],
+            "input": ["text", "image", "pdf"],
             "output": ["text"],
           },
           "variants": {
@@ -180,67 +180,6 @@
             },
             "xhigh": {
               "reasoningEffort": "xhigh",
-              "reasoningSummary": "detailed",
-              "textVerbosity": "medium",
-            },
-          },
-        },
-        "gpt-5.1-codex-max": {
-          "name": "GPT 5.1 Codex Max (OAuth)",
-          "limit": {
-            "context": 272000,
-            "output": 128000,
-          },
-          "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"],
-          },
-          "variants": {
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium",
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium",
-            },
-            "high": {
-              "reasoningEffort": "high",
-              "reasoningSummary": "detailed",
-              "textVerbosity": "medium",
-            },
-            "xhigh": {
-              "reasoningEffort": "xhigh",
-              "reasoningSummary": "detailed",
-              "textVerbosity": "medium",
-            },
-          },
-        },
-        "gpt-5.1-codex": {
-          "name": "GPT 5.1 Codex (OAuth)",
-          "limit": {
-            "context": 272000,
-            "output": 128000,
-          },
-          "modalities": {
-            "input": ["text", "image"],
-            "output": ["text"],
-          },
-          "variants": {
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium",
-            },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium",
-            },
-            "high": {
-              "reasoningEffort": "high",
               "reasoningSummary": "detailed",
               "textVerbosity": "medium",
             },
@@ -269,37 +208,84 @@
             },
           },
         },
-        "gpt-5.1": {
-          "name": "GPT 5.1 (OAuth)",
-          "limit": {
-            "context": 272000,
-            "output": 128000,
-          },
+      },
+    },
+
+    "doubao": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Doubao Coding Plan",
+      "options": {
+        "baseURL": "https://ark.cn-beijing.volces.com/api/coding/v3",
+        "apiKey": "{env:DOUBAO_API_KEY}",
+      },
+      "models": {
+        "kimi-k2.5": {
+          "name": "Kimi-K2.5",
           "modalities": {
             "input": ["text", "image"],
             "output": ["text"],
           },
+          "options": {
+            "thinking": {
+              "type": "disabled",
+            },
+          },
           "variants": {
-            "none": {
-              "reasoningEffort": "none",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium",
+            "thinking": {
+              "thinking": {
+                "type": "enabled",
+              },
             },
-            "low": {
-              "reasoningEffort": "low",
-              "reasoningSummary": "auto",
-              "textVerbosity": "low",
+          },
+          "limit": {
+            "context": 256000,
+            "output": 32000,
+          },
+        },
+        "doubao-seed-code": {
+          "name": "Doubao-Seed-Code",
+          "modalities": {
+            "input": ["text", "image", "video"],
+            "output": ["text"],
+          },
+          "options": {
+            "thinking": {
+              "type": "disabled",
             },
-            "medium": {
-              "reasoningEffort": "medium",
-              "reasoningSummary": "auto",
-              "textVerbosity": "medium",
+          },
+          "variants": {
+            "thinking": {
+              "thinking": {
+                "type": "enabled",
+              },
             },
-            "high": {
-              "reasoningEffort": "high",
-              "reasoningSummary": "detailed",
-              "textVerbosity": "high",
+          },
+          "limit": {
+            "context": 256000,
+            "output": 32000,
+          },
+        },
+        "glm-4.7": {
+          "name": "GLM-4.7",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"],
+          },
+          "options": {
+            "thinking": {
+              "type": "disabled",
             },
+          },
+          "variants": {
+            "thinking": {
+              "thinking": {
+                "type": "enabled",
+              },
+            },
+          },
+          "limit": {
+            "context": 200000,
+            "output": 128000,
           },
         },
       },
