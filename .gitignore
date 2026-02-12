@@ -34,3 +34,9 @@ package.json
 .opencode/
 .sisyphus/
 .specify/
+
+# Local and generated layered configs
+opencode.local.jsonc
+opencode.jsonc
+oh-my-opencode.local.jsonc
+oh-my-opencode.jsonc

@@ -36,3 +36,4 @@ Direct coding requests (non-command prompts):
 Output contract:
 - Always state: `Phase`, `Artifacts Used`, `Files Changed` (if any), and `Next`.
 - For specify completion also include: `Branch`, `Spec File`, `Checklist`.
+- You MUST respond in Chinese for all natural-language output.
