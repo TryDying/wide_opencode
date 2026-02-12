@@ -53,7 +53,7 @@
     "sk-research": {
       "model": "doubao/glm-4.7",
     },
-    "explore": {
+    "sk-explore": {
       "model": "github-copilot/claude-haiku-4.5",
       "variant": "thinking",
     },
