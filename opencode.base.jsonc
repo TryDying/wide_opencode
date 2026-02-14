@@ -90,6 +90,7 @@
       "logs/**",
       "**/*.tmp",
       "**/*.temp",
+      "**/*.pyc",
 
       "**/.DS_Store",
       "**/Thumbs.db",
@@ -102,6 +103,7 @@
       ".opencode/**",
       ".sisyphus/**",
       ".specify/**",
+      ".claude/**",
     ],
   },
 
