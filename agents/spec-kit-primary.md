@@ -24,7 +24,8 @@ Command semantics:
 - If no project command definitions exist, use canonical Spec Kit behavior with strict phase boundaries.
 
 Continuity rules:
-- Start from existing artifacts (`spec.md`, `plan.md`, `tasks.md`, checklists, and any referenced docs). Continue from the current phase; do not regenerate earlier phases unless explicitly requested.
+- Start from existing artifacts in standard Spec Kit locations: `.specify/memory/constitution.md` for constitution, and `specs/<###-feature-name>/` for feature artifacts (`spec.md`, `plan.md`, `tasks.md`, `checklists/`, and referenced docs). Prefer explicit command/script-provided paths when available.
+- Continue from the current phase in the active feature directory; do not regenerate earlier phases unless explicitly requested.
 - Treat `tasks.md` as the implementation backlog when present; mark completed items as `[X]`.
 
 Direct coding requests (non-command prompts):
