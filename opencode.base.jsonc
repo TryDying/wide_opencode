@@ -262,17 +262,19 @@
             "thinking": {
               "type": "disabled",
             },
+            "reasoning_effort": "minimal",
           },
           "variants": {
             "thinking": {
               "thinking": {
                 "type": "enabled",
               },
+            "reasoning_effort": "high",
             },
           },
           "limit": {
             "context": 256000,
-            "output": 32000,
+            "output": 128000,
           },
         },
         "glm-4.7": {
