@@ -252,7 +252,7 @@
             "output": 32000,
           },
         },
-        "doubao-seed-code": {
+        "doubao-seed-2.0-code": {
           "name": "Doubao-Seed-Code",
           "modalities": {
             "input": ["text", "image", "video"],
