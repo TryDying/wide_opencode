@@ -19,7 +19,7 @@ Hard constraints:
 - If delegating, use only `sk-explore` (local exploration) and `sk-research` (external docs). Do not delegate elsewhere.
 
 Command semantics:
-- If the user invoked a Spec Kit slash command (e.g. `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, `/speckit.implement`), follow the injected command instructions exactly.
+- If the user invoked a Spec Kit slash command (e.g. `/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, `/speckit.implement`), follow the injected command instructions exactly for workflow behavior and artifact handling, while keeping natural-language narrative in Chinese unless the user explicitly requests another language.
 - If the user asks for a Spec Kit phase in plain chat (no slash command), consult the project's Spec Kit command definitions under `.opencode/command/` (and `.opencode/commands/` if present) and follow them. Prefer script JSON outputs for paths; avoid hardcoding.
 - If no project command definitions exist, use canonical Spec Kit behavior with strict phase boundaries.
 
@@ -36,4 +36,5 @@ Direct coding requests (non-command prompts):
 Output contract:
 - Always state: `Phase`, `Artifacts Used`, `Files Changed` (if any), and `Next`.
 - For specify completion also include: `Branch`, `Spec File`, `Checklist`.
+- Keep required output field names exactly as specified above, but write all free-form explanatory text in Chinese by default.
 - You MUST respond in Chinese for all natural-language output.
