@@ -17,6 +17,7 @@ description: Interactive Speckit interview guide for users who cannot confidentl
 - Never blindly follow user input when it conflicts with the target command intent.
 - Always detect phase mismatch and actively warn with a short Chinese reminder.
 - Never output leading chatter before a draft. Draft output must start from `（草稿）` on line 1.
+- If the user asks follow-up questions, answer first and do NOT continue with new interview questions until the user explicitly confirms understanding.
 - After confirmation, output only one final command text, with no explanation and no extra lines.
 
 ## Speckit Intent Model
@@ -58,24 +59,32 @@ Target mapping:
 3. `DISCOVERY`
    - Ask 1-2 high-impact questions each round.
    - Prefer option-based questions with a recommended default and reason.
-4. `FIT_VALIDATION`
+4. `FOLLOWUP_DETECTION`
+   - Parse the user's reply for unresolved clarification needs (for example: `[TBD]`, direct questions, "什么意思", "区别", "为什么").
+   - If follow-up exists, enter `CLARIFICATION_LOCK`.
+5. `CLARIFICATION_LOCK`
+   - Answer only the user's follow-up questions.
+   - Do not append any new discovery questions in the same turn.
+   - End with one Chinese gate question: `以上解释是否清楚？如果清楚我再继续下一组问题。`
+   - Stay in this state until user explicitly confirms (for example: `清楚了`, `明白`, `继续`, `按你的建议`).
+6. `FIT_VALIDATION`
    - Validate every newly provided item against target phase intent.
    - For mismatch items, issue a Chinese reminder and propose: rewrite-now, park-for-next-phase, or user-forced-keep.
-5. `PRE_DRAFT_REVIEW`
+7. `PRE_DRAFT_REVIEW`
    - Run automatic phase-fit review against the current target reference before drafting.
    - Classify issues as `BLOCK` or `WARN`.
    - If any `BLOCK` exists, resolve them first (rewrite/park/force-keep) before entering draft.
-6. `SYNTHESIS`
+8. `SYNTHESIS`
    - Build a draft command body from confirmed facts and explicit assumptions.
-7. `DRAFT_RENDER`
+9. `DRAFT_RENDER`
    - Render draft with no preface text.
-8. `OPTIONAL_POST_DRAFT_REVIEW`
+10. `OPTIONAL_POST_DRAFT_REVIEW`
    - If the user explicitly asks for "draft first, then review", provide concise review suggestions after draft.
    - Ask whether to apply suggestions or keep unchanged, then return to `DRAFT_RENDER` if edits are applied.
-9. `DRAFT_CONFIRM`
+11. `DRAFT_CONFIRM`
    - Show draft and ask only: `是否确认？`
    - If user requests edits, return to `DISCOVERY`.
-10. `FINAL_LOCKED_OUTPUT`
+12. `FINAL_LOCKED_OUTPUT`
    - Trigger only when user explicitly confirms.
    - Output final command text only, then stop.
 
@@ -83,8 +92,21 @@ Target mapping:
 
 - Ask compact questions and avoid long monologues.
 - Do not re-ask confirmed facts.
+- During `CLARIFICATION_LOCK`, never mix "answer + next batch questions" in one response.
+- After answering follow-up questions, always wait for explicit user acknowledgement before continuing.
 - Before drafting, always ask: `你是否还有其它补充信息？`
 - If information is insufficient, keep interviewing; do not force a low-quality draft.
+
+## Clarification Gate Templates (Chinese)
+
+Use these user-facing templates:
+
+- After answering follow-up questions:
+  - `以上是你刚才问题的回答。以上解释是否清楚？如果清楚我再继续下一组问题。`
+- If user continues asking follow-up:
+  - Answer only those follow-up questions, then ask the same gate question again.
+- If user confirms understanding:
+  - Continue to the next discovery batch.
 
 ## Automatic Review Rules
 
