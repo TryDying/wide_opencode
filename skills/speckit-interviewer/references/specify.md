@@ -45,3 +45,27 @@ Examples:
 - Are non-goals explicit to prevent scope creep?
 - Are acceptance criteria measurable?
 - Is user value clearly stated?
+
+## Auto Review Severity
+
+Classify each candidate item before drafting:
+
+- `BLOCK`
+  - Encodes concrete implementation choices (stack, framework, API, infra wiring) that belong to `plan`.
+  - Rewrites scope by adding unconfirmed features.
+  - Omits acceptance criteria for core requirements.
+- `WARN`
+  - Requirement language is ambiguous or non-testable.
+  - Non-goals are missing and scope may creep.
+
+If any `BLOCK` exists, resolve first (rewrite, park, or force-keep with explicit risk note).
+
+## Review Output Template (Chinese)
+
+Use concise Chinese output:
+
+- `审查结果：BLOCK <n> 条，WARN <m> 条。`
+- `关键问题：`
+  - `1) ...`
+  - `2) ...`
+- `建议操作：1) 按建议修改（推荐）2) 仅修复 BLOCK 3) 原样保留`

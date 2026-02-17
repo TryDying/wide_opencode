@@ -50,3 +50,27 @@ Use short option-based questions with recommendations:
 - Are failure handling and recovery conditions concrete?
 - Is the validation path actionable and testable?
 - Does plan stay within specified scope (or explicitly mark scope assumptions)?
+
+## Auto Review Severity
+
+Classify each candidate item before drafting:
+
+- `BLOCK`
+  - Introduces new product requirements/scope not agreed in `specify`.
+  - Lacks actionable failure handling for critical paths.
+  - Uses only principle-level text without implementable design decisions.
+- `WARN`
+  - Decision is present but rationale/trade-off is weak.
+  - Validation path is partial (missing stability or fault-injection coverage).
+
+If any `BLOCK` exists, resolve first (rewrite, park, or force-keep with explicit risk note).
+
+## Review Output Template (Chinese)
+
+Use concise Chinese output:
+
+- `审查结果：BLOCK <n> 条，WARN <m> 条。`
+- `关键问题：`
+  - `1) ...`
+  - `2) ...`
+- `建议操作：1) 按建议修改（推荐）2) 仅修复 BLOCK 3) 原样保留`

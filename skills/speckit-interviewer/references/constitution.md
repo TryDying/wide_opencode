@@ -45,3 +45,27 @@ Examples:
 - Are obligations auditable and testable?
 - Are change/compatibility rules explicit?
 - Are safety and diagnostics non-negotiable?
+
+## Auto Review Severity
+
+Classify each candidate item before drafting:
+
+- `BLOCK`
+  - Encodes direct implementation choices (language version, deployment path, service unit names, concrete APIs/libraries) without explicit "organization policy" framing.
+  - Introduces exact control parameters or algorithm-level details.
+  - Adds product scope/feature commitments that belong to `specify`.
+- `WARN`
+  - Principle wording is too vague to audit.
+  - Obligation is meaningful but lacks clear boundary/trigger.
+
+If any `BLOCK` exists, resolve first (rewrite, park, or force-keep with explicit risk note).
+
+## Review Output Template (Chinese)
+
+Use concise Chinese output:
+
+- `审查结果：BLOCK <n> 条，WARN <m> 条。`
+- `关键问题：`
+  - `1) ...`
+  - `2) ...`
+- `建议操作：1) 按建议修改（推荐）2) 仅修复 BLOCK 3) 原样保留`
