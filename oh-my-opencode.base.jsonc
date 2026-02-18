@@ -16,10 +16,12 @@
     // ================================================================================
     "sisyphus": {
       "description": "主入口编排/执行：拆任务、并行调用子 agent、驱动 ultrawork 工作流。",
-      "model": "openai/gpt-5.2",
+      "model": "github-copilot/claude-opus-4.6",
+      // "model": "github-copilot/claude-sonnet-4.6",
+      // "model": "doubao/kimi-k2.5",
+      "variant": "thinking",
       "mode": "primary",
       "prompt_append": "\n\nYou MUST respond in Chinese for all natural-language output.",
-      "variant": "xhigh",
     },
     "prometheus": {
       "description": "规划器：通过澄清需求产出可执行计划（与 Atlas 配合使用，先 plan 后执行）。",
