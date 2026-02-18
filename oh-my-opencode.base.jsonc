@@ -11,60 +11,75 @@
   //   "directory-readme-injector",
   // ],
   "agents": {
+    // ================================================================================
+    // primary + all agent
+    // ================================================================================
     "sisyphus": {
-      "description": "总控。负责：任务拆解、子代理调度、全流程推进",
-      "model": "openai/gpt-5.3-codex",
+      "description": "主入口编排/执行：拆任务、并行调用子 agent、驱动 ultrawork 工作流。",
+      "model": "openai/gpt-5.2",
       "mode": "primary",
       "prompt_append": "\n\nYou MUST respond in Chinese for all natural-language output.",
-      "variant": "high",
+      "variant": "xhigh",
     },
     "prometheus": {
-      "description": "架构师。负责：复杂任务的结构化计划、步骤设计",
+      "description": "规划器：通过澄清需求产出可执行计划（与 Atlas 配合使用，先 plan 后执行）。",
       "mode": "all",
       "model": "openai/gpt-5.2",
-      "variant": "medium",
+      "variant": "high",
       // "prompt_append": "\n\n[MANDATORY FILE CREATION RULE]\n\n**Filesystem Policy:**\nYou may create normal project files (code/config/assets/documentation like README.md) in the repo root when appropriate, or when the user explicitly requests a path.\n\n**HOWEVER, you MUST NOT create note-style artifacts in the repo root.** These include:\n- Notes, summaries, references, extracts, research documents, analysis files, plans, reports, reviews, assessments, critiques\n- Examples: `notes.md`, `research.md`, `summary-*.md`, `ANALYSIS_*.txt`, `*_QUICK_REFERENCE.md`, `*_extract.md`, `PLAN_*.md`, `REVIEW_*.md`, `REPORT_*.txt`\n\n**MANDATORY Storage Rules:**\n1. Put ALL note-style artifacts under `.sisyphus/notes/` directory\n2. When you need to read/consult/append to those artifacts, look under `.sisyphus/notes/`, NOT the repo root\n3. Create the directory if it doesn't exist\n4. Exception: Only modify files that user explicitly requested",
       "prompt_append": "\n\nYou MUST respond in Chinese for all natural-language output.",
     },
-    "atlas": {
-      "mode": "primary",
-      "description": "审查者。负责：检查实现是否符合最初目标、发现遗漏",
-      "model": "openai/gpt-5.2",
-      "prompt_append": "\n\nYou MUST respond in Chinese for all natural-language output.",
-      "variant": "medium",
-    },
     "hephaestus": {
-      "description": "实现者。负责：代码生成、重构、具体实现",
-      "mode": "subagent",
+      "description": "深度“工匠型”执行：偏自主深挖与严格执行纪律，适合复杂改动/深调试链路。",
+      "mode": "primary",
       "model": "openai/gpt-5.3-codex",
       "variant": "medium",
     },
-    "metis": {
-      "mode": "subagent",
+    "atlas": {
+      "mode": "primary",
+      "description": "计划/待办的总编排器：用 task() 派单、跟踪进度、做完成性与验证闭环；自身主要负责协调而非直接写代码。",
       "model": "openai/gpt-5.2",
-      "variant": "medium",
+      "prompt_append": "\n\nYou MUST respond in Chinese for all natural-language output.",
+      "variant": "none",
     },
-    "oracle": {
-      "mode": "subagent",
-      "model": "openai/gpt-5.2",
-      "variant": "medium",
-    },
+
+    // ================================================================================
+    // subagent
+    // ================================================================================
+
     "explore": {
+      "description": "代码库侦察/定位：高强度 grep/read/glob，快速找实现位置、引用关系、相关文件清单。",
       "mode": "subagent",
-      "model": "github-copilot/claude-haiku-4.5",
+      // "model": "github-copilot/claude-haiku-4.5",
+      "model": "github-copilot/grok-code-fast-1",
       "variant": "fast",
     },
     "librarian": {
+      "description": "资料员/溯源研究：查官方文档、仓库、实现范式，强调证据链与引用。",
       "mode": "subagent",
       "model": "doubao/glm-4.7",
       // "variant": "thinking",
     },
+    "metis": {
+      "description": "计划前置顾问：澄清意图、找歧义和隐藏约束，给 planner/主编排器提供更稳的输入。",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+    },
+    "oracle": {
+      "description": "高级顾问：架构权衡、复杂推理、疑难 debug 的分析与复审建议。",
+      "mode": "subagent",
+      "model": "openai/gpt-5.2",
+      "variant": "high",
+    },
     "momus": {
+      "description": "计划审查：检查计划可执行性、遗漏与风险点，偏“阻塞级缺陷”抓取。",
       "mode": "subagent",
       "model": "openai/gpt-5.2",
       "variant": "medium",
     },
     "multimodal-looker": {
+      "description": "多模态内容抽取：PDF/图片/截图/图表的信息读取与要点提取（工具权限通常更收紧）。",
       "mode": "subagent",
       "model": "github-copilot/gemini-3-flash-preview",
     },
