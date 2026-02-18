@@ -5,6 +5,11 @@
     "planner_enabled": true,
     "replace_plan": true,
   },
+  // "disabled_hooks": [
+  //   "rules-injector",
+  //   "directory-agents-injector",
+  //   "directory-readme-injector",
+  // ],
   "agents": {
     "sisyphus": {
       "description": "总控。负责：任务拆解、子代理调度、全流程推进",
